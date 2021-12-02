@@ -1,0 +1,57 @@
+<body class="text-center">
+  <header>
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <img src="https://seeklogo.com/images/L/lawrence-vikings-lu-logo-CB109DBCD3-seeklogo.com.png" width="40" height="32">
+        <span class="fs-4">LifeUp</span>
+      </a>
+
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/">Main page</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="set">View your information</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="setting">Change your information</a>
+        <a class="py-2 text-dark text-decoration-none" href="session/logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+<main class="form-signin">
+<p>Current weight: <strong><%=@current_mass%></strong> kg<br></p>
+<p>Weight a week ago: <strong><%=@pass_mass%></strong> kg<br></p>
+<p>First workout: <strong><%=@first_training%></strong> <br></p>
+<p>Calories per day: <strong><%=@calories%></strong><br></p>
+<% if @dif>0 then %>
+  <p>Last week you lost <strong><%=@dif%></strong> kg<br></p>
+<%end%>
+<% if @dif<0 then %>
+  <p>Last week you gained <strong><%=@dif.abs%></strong> kg<br></p>
+<%end%>
+<% if @dif==0 then %>
+  <p>You have not changed your weight ia n week<br></p>
+<%end%>
+<p>You have done <strong><%=@num_of_trainings%></strong> training sessions<br></p>
+<p>You have done <strong><%=@num_of_passes%></strong> training sessions<br></p>
+
+<% if @user.date_of_update != Date.today then%>
+<%= form_tag("/weight", :method => "post") do %>
+<div class="lable_2">
+<%= label_tag "Changed weight"  %>
+</div>
+<%= number_field_tag :chang ,value = @user.current_mass, :class => 'lable'%><br>
+<div class="lable_2">
+<%= label_tag "Changed calories if ypu see onsufficient changes"  %>
+</div>
+<%= number_field_tag :callor ,value = @user.calories, :class => 'lable'%><br>
+<%= submit_tag("Change parameters", :class => 'button_2') %>
+<% end%>
+<% end %>
+<div class="formd">
+<%= form_tag("/mail_stat", :method => "get") do %>
+<%= submit_tag("Send to email", :class => 'button_2') %>
+<% end %>
+</div>
+<footer role="contentinfo">
+  <p class="float-end"></p>
+  <p>&copy; 2021 LifeUp, Inc. &middot; &middot; &middot; email: lifeup.end.lifeup@gmail.com &middot; &middot; &middot;</p>
+</footer>
+</main>
+</body>

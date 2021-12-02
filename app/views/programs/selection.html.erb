@@ -1,0 +1,99 @@
+<body class="text-center">
+  <header>
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center text-decoration-none">
+        <img src="https://seeklogo.com/images/L/lawrence-vikings-lu-logo-CB109DBCD3-seeklogo.com.png" width="40" height="32">
+        <span class="fs-4">LifeUp</span>
+      </a>
+
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <% if @user.date_of_update != nil then%>
+          <a class="me-3 py-2 text-dark text-decoration-none" href="state">Statistics</a>
+        <%end%>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="set">View your information</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="setting">Change your information</a>
+        <a class="py-2 text-dark text-decoration-none" href="session/logout">Logout</a>
+      </nav>
+
+  </header>
+<body class="text-center">
+<main>
+  <%if @best_id != nil %>
+  <h4> Best progress over the past week: <%=@best_id.username%></h4>
+  <% if @best_id.image? %>
+    <%= image_tag @best_id.image.url(:large) %>
+    <%end %>
+    <% if @best_id.weight_change>0 then %>
+      <h4>Lost <strong><%=@best_id.weight_change%></strong> kg<br></h4>
+    <%end%>
+    <% if @best_id.weight_change<0 then %>
+      <h4>Last week gained <strong><%=@best_id.weight_change.abs%></strong> kg<br></h4>
+    <%end%>
+  <%end%>
+<%if @user.training_id.nil? then%>
+<div class="bid_lable">Choose the purpose of your training:</div>
+<%else%>
+<h4>You can change the porpose of your training:</h4>
+<%end%>
+<%= link_to image_tag("https://avatars.mds.yandex.net/i?id=01115ca9540846646c809c1d3e36caa9-4576320-images-thumbs&n=13", :size => "260x180"), weight_gain_path %>
+<%= link_to image_tag("https://avatars.mds.yandex.net/i?id=448c719ed826c1d68a67262a52b2053b-5233993-images-thumbs&n=13", :size => "260x180"), weight_loss_path %>
+<%= link_to image_tag("https://cdnimg.rg.ru/img/content/177/05/94/1430_d_850.jpg", :size => "260x180"), stag_path %>
+<div class="row row-cols-1 row-cols-md-7 md3-7 text-center">
+<%if (@user.date_of_change == Date.today) then%>
+<% fal =@user.skip %>
+<%else fal = false%>
+<%end%>
+<% if @user.training_id.nil? then%>
+<p> You will see the workout when you select it!</p>
+<%else%>
+<table class="table">
+  <tr><th class="th">Day of the week</th><th class="th">Monday</th><th class="th">Tuesday</th><th class="th">Wednesday</th><th class="th">Thursday</th><th class="th">Friday</th><th class="th">Saturday</th><th class="th">Sunday</th></tr>
+<tr><td>Workout</td><td>
+  <%= @test1 %>
+  <%= form_tag("/sustain", :method => "post") do %>
+<% if (Date.today.saturday?) then %>
+  <%= check_box_tag name = 'skip',value = "true", checked = fal %>
+<% end %>
+</td><td>
+<%= @test2 %>
+<% if (Date.today.tuesday?) then %>
+  <%= check_box_tag name = 'skip',value = "true", checked = fal %>
+<% end %>
+</td><td>
+<%= @test3 %>
+<% if (Date.today.wednesday?) then %>
+  <%= check_box_tag name = 'skip',value = "true", checked = fal %>
+<% end %>
+</td><td>
+<%= @test4 %>
+<% if (Date.today.thursday?) then %>
+<%= check_box_tag name = 'skip',value = "true", checked = fal %>
+<% end %>
+</td><td>
+<%= @test5 %>
+<% if (Date.today.friday?) then %>
+<%= check_box_tag name = 'skip',value = "true", checked = fal %>
+<% end %>
+</td><td>
+<%= @test6 %>
+<% if (Date.today.saturday?) then %>
+<%= check_box_tag name = 'skip',value = "true", checked = fal %>
+<% end %>
+</td><td>
+<%= @test7 %>
+<% if (Date.today.monday?) then %>
+<%= check_box_tag name = 'skip',value = "true", checked = fal %>
+<% end %>
+</td></tr>
+</table>
+<div class="actions">
+<%= submit_tag("Mark if you miss", class: "but") %>
+<% end %>
+</div>
+<%end%>
+<footer role="contentinfo">
+  <p class="float-end"></p>
+  <p>&copy; 2021 LifeUp, Inc. &middot; &middot; &middot; email: lifeup.end.lifeup@gmail.com &middot; &middot; &middot;</p>
+</footer>
+</main>
+</body>

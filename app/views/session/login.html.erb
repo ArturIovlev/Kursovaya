@@ -1,0 +1,23 @@
+<body class="text-center">
+<main class="form-signin">
+  <img src="https://seeklogo.com/images/L/lawrence-vikings-lu-logo-CB109DBCD3-seeklogo.com.png" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <div class="form-floating">
+      <div class="actions">
+        <%= form_with url: session_create_url, method: :post, local:true do |f| %>
+        <%= f.text_field :username, required: true, :class => 'form-control' %>
+      </div>
+    </div>
+    <div class="form-floating">
+      <div class="actions"><%= f.password_field :password, required: true, :class => 'form-control'%></div>
+    </div>
+    <div class="actions"><%= f.submit :login, required: true, :class => 'button' %></div>
+    <span class="actions"><%= link_to 'Registration', new_user_path ,:class => 'lol'%></span>
+    <p class="mt-5 mb-3 text-muted">LifeUp 2021</p>
+  <%end%>
+  <footer>
+    <p class="float-end"></p>
+    <p>&copy; 2021 LifeUp, Inc. &middot; &middot; &middot; email: lifeup.end.lifeup@gmail.com &middot; &middot; &middot;</p>
+  </footer>
+</main>
+</body>

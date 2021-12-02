@@ -1,0 +1,45 @@
+<body class="text-center">
+  <header>
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <img src="https://seeklogo.com/images/L/lawrence-vikings-lu-logo-CB109DBCD3-seeklogo.com.png" width="40" height="32">
+        <span class="fs-4">LifeUp</span>
+      </a>
+
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/">Main page</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="set">View your information</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="setting">Change your information</a>
+        <a class="py-2 text-dark text-decoration-none" href="session/logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+  <body class="text-center">
+  <main class="form-signin">
+<%= form_tag("/show", :method => "post") do %>
+<%= hidden_field_tag :calories, value: @cal %>
+<div style="text-align: center;">
+  <table width="350" border="1" style="display: inline-block;">
+    <th colspan="5"><h4>All Available workouts</h4></th>
+    <tr><td><h4>Name</h4></td><td><h4>Exampe of traning</h4> </td></tr>
+  <% unless @result.nil?%>
+    <% @result.each do |elem| %>
+      <tr>
+        <td class="name"><h4><%=elem.second%></h4></td>
+        <td class="prof"><h4><%=elem.third %></h4></td>
+        <td>
+                <%= radio_button_tag 'training_id', elem.first,:class =>"button" %>
+          </td>
+      </tr>
+    <%end %>
+  <%end %>
+</table>
+</div>
+<%= submit_tag("Confirm selection", class: "button") %>
+<%end%>
+<footer role="contentinfo">
+  <p class="float-end"></p>
+  <p>&copy; 2021 LifeUp, Inc. &middot; &middot; &middot; email: lifeup.end.lifeup@gmail.com &middot; &middot; &middot;</p>
+</footer>
+</main>
+</body>

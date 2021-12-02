@@ -1,0 +1,9 @@
+Hi <%= @user.username%>
+Thanks for using our service. We send statistics of your workouts for this week:
+Your current weight <%=@user.current_mass%><br>
+Your weight last week <%=@user.current_mass+@user.weight_change%><br>
+Your first workout on this program <%=@user.first_training%><br>
+Calories per day <%=@user.calories%><br>
+You changed weight <%=@user.weight_change.abs%> kg<br>
+Total missed workouts <%=@user.num_of_trainings%><br>
+Total workouts done <%=@user.num_of_passes%><br>
